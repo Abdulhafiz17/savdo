@@ -1,0 +1,127 @@
+:root {
+    /* --dark: rgb(63, 68, 73); */
+    /* --dark: rgb(55, 65, 70); */
+    --dark: rgb(49, 57, 66);
+    /* --dark: rgb(39, 47, 55); */
+}
+
+.dark .container-fluid {
+    color: var(--main-color);
+    /* background: rgb(60, 65, 70); */
+    /* background: rgb(55, 65, 70); */
+    background: rgb(49, 57, 66);
+    /* background: rgb(39, 47, 55); */
+}
+
+.dark #main-card {
+    background: var(--dark);
+}
+
+.dark .card {
+    color: var(--main-color);
+    background: var(--dark);
+}
+
+.dark a {
+    color: white;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+    border: 1px solid gray;
+    background: rgb(211, 211, 211, 0.1);
+    color: lightgray !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+    background: var(--dark);
+    border: 1px solid var(--main-border) !important;
+}
+
+.dark input[disabled] {
+    background: var(--item-hover);
+}
+
+.dark .input-group-text {
+    background: var(--dark);
+    color: lightgray;
+    border: 1px solid var(--main-border);
+}
+
+/* .dark .input-group-append .input-group-text {
+    border-left: none;
+} */
+
+.dark .input-group-prepend .input-group-text {
+    border-right: none;
+}
+
+.dark table {
+    color: var(--main-color);
+}
+
+.dark table tr:hover {
+    color: var(--main-color);
+}
+
+.dark .table th {
+    border-top: none;
+    border-bottom: 1px solid;
+}
+
+.dark .table td {
+    border: none;
+}
+
+.dark .btn {
+    color: white;
+}
+
+.dark .list-group-item {
+    background: var(--dark);
+    color: var(--main-color);
+}
+
+.dark .list-group-item:hover {
+    background: var(--item-hover);
+}
+
+.dark .list-group-item:active {
+    background: var(--item-active);
+}
+
+.dark .nav-link {
+    color: white;
+}
+
+.dark .nav-link:hover {
+    color: lightgray;
+}
+
+.dark .nav-link.active {
+    color: white;
+    background: var(--main-border) !important;
+}
+
+.dark .modal-content {
+    background: var(--dark);
+}
+
+.dark .dropdown-menu {
+    background: var(--dark);
+}
+
+.dark .dropdown-menu .dropdown-item {
+    color: var(--main-color);
+}
+
+.dark .dropdown-menu .dropdown-item:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .swal-modal {
+    background: var(--dark) !important;
+}
