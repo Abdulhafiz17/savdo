@@ -445,7 +445,7 @@
         <div class="modal-body">
           <span v-if="main_photo" class="photo-viewer">
             <img
-              :src="`https://adidas.crud.uz/photos/${main_photo}`"
+              :src="`https://ClothingSalesProject-api.crud.uz/uploaded_files/${main_photo}`"
               :alt="main_photo"
             />
           </span>
