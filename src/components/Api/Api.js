@@ -3,7 +3,7 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const instance = axios.create({
-    baseURL: "https://tradeproject.crud.uz/",
+    baseURL: "https://ClothingSalesProject-api.crud.uz/",
     headers: {
         Authorization: `Bearer ${localStorage.getItem('access_token')}`,
     }
