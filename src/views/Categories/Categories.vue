@@ -402,7 +402,7 @@
                   class="photo-viewer"
                 >
                   <img
-                    :src="`https://adidas.crud.uz/photos/${photo.logo}`"
+                    :src="`https://ClothingSalesProject-api.crud.uz/uploaded_files/${photo.logo}`"
                     :alt="photo.logo"
                     data-toggle="modal"
                     data-target="#mainPhoto"
