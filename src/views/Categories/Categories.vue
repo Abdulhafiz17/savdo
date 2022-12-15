@@ -514,6 +514,7 @@ export default {
       this.$emit("setloading", true);
       categories(0, page, limit)
         .then((Response) => {
+          console.log(Response.data)
           this.page = Response.data.current_page;
           this.pages = Response.data.pages;
           this.categories = Response.data.data;
@@ -547,7 +548,7 @@ export default {
         JsBarcode("#barcode", product.Products.code, {
           // format: "CODE128",
           width: 2,
-          height: 20,
+          height: 14,
         });
       }, 100);
     },
@@ -716,7 +717,7 @@ export default {
   position: absolute;
   top: 0;
   width: 5.8cm;
-  height: 1cm;
+  height: 1.5cm;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -731,7 +732,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 5.8cm;
-  height: 2cm;
+  height: 1.5cm;
 }
 
 .modal-body .row {
