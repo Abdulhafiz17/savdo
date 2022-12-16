@@ -71,128 +71,131 @@
   </div>
 
   <div class="responsive my-1">
-    <table class="table table-sm text-center table-hover table-borderless">
-      <thead>
-        <tr>
-          <th>№</th>
-          <th>Mahsulot</th>
-          <th>Hajm</th>
-          <th>Narxi</th>
-          <th>Chegirma</th>
-          <th>To'lov</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, n) in trades" :key="item">
-          <td>{{ n + 1 }}</td>
-          <td>
-            {{
-              item.Categories.name +
-              " - " +
-              item.Products.articul +
-              " - " +
-              item.Products.size
-            }}
-          </td>
-          <td>
-            <div class="input-group input-group-sm w-50 mx-auto">
-              <button
-                class="btn btn-outline-secondary"
-                @click="putTrade('<', item)"
-              >
-                <i class="fa fa-minus" />
-              </button>
-              <input
-                class="form-control text-center"
-                type="number"
-                v-model="item.sum_quantity"
-                min="0"
-                :max="item.quantity"
-                step="any"
-              />
-              <button
-                class="btn btn-outline-secondary"
-                @click="putTrade('>', item)"
-              >
-                <i class="fa fa-plus" />
-              </button>
-            </div>
-          </td>
-          <td>
-            <form @submit.prevent="putTrade('', item)">
-              <div class="input-group input-group-sm w-75 mx-auto">
-                <input
-                  type="number"
-                  step="any"
-                  min="0"
-                  required
-                  class="form-control text-center"
-                  v-model="item.Trades.price"
-                  @focusout="putTrade('', item)"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    {{ item.Currencies ? item.Currencies.currency : "" }}
-                  </div>
-                </div>
-              </div>
-            </form>
-          </td>
-          <td>
-            <form @submit.prevent="putTrade('', item)">
-              <div class="input-group input-group-sm w-75 mx-auto">
-                <input
-                  type="number"
-                  step="any"
-                  min="0"
-                  required
-                  class="form-control text-center"
-                  v-model="item.Trades.discount"
-                  @focusout="putTrade('', item)"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    {{ item.Currencies ? item.Currencies.currency : "" }}
-                  </div>
-                </div>
-              </div>
-            </form>
-          </td>
-          <td>
-            <span
-              :class="
-                item.Trades.price - item.Trades.discount >
-                item.Products.sotuv_narx
-                  ? 'text-success'
-                  : item.Trades.price - item.Trades.discount <=
-                      item.Products.sotuv_narx &&
-                    item.Trades.price - item.Trades.discount >=
-                      item.Products.oxirgi_narx
-                  ? 'text-warning'
-                  : 'text-danger'
-              "
-            >
+    <div class="table-responsive">
+      <table class="table table-sm text-center table-hover table-borderless">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Mahsulot</th>
+            <th>Hajm</th>
+            <th>Narxi</th>
+            <th>Chegirma</th>
+            <th>To'lov</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, n) in trades" :key="item">
+            <td>{{ n + 1 }}</td>
+            <td>
               {{
-                Intl.NumberFormat().format(
-                  (item.Trades.price - item.Trades.discount) * item.sum_quantity
-                ) +
-                " " +
-                item.Currencies.currency
+                item.Categories.name +
+                " - " +
+                item.Products.articul +
+                " - " +
+                item.Products.size
               }}
-            </span>
-          </td>
-          <td>
-            <button
-              class="btn btn-sm btn-outline-danger"
-              @click="putTrade('delete', item)"
-            >
-              <i class="fa fa-trash" />
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+            <td>
+              <div class="input-group input-group-sm w-50 mx-auto">
+                <button
+                  class="btn btn-outline-secondary"
+                  @click="putTrade('<', item)"
+                >
+                  <i class="fa fa-minus" />
+                </button>
+                <input
+                  class="form-control text-center"
+                  type="number"
+                  v-model="item.sum_quantity"
+                  min="0"
+                  :max="item.quantity"
+                  step="any"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  @click="putTrade('>', item)"
+                >
+                  <i class="fa fa-plus" />
+                </button>
+              </div>
+            </td>
+            <td>
+              <form @submit.prevent="putTrade('', item)">
+                <div class="input-group input-group-sm w-75 mx-auto">
+                  <input
+                    type="number"
+                    step="any"
+                    min="0"
+                    required
+                    class="form-control text-center"
+                    v-model="item.Trades.price"
+                    @focusout="putTrade('', item)"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      {{ item.Currencies ? item.Currencies.currency : "" }}
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </td>
+            <td>
+              <form @submit.prevent="putTrade('', item)">
+                <div class="input-group input-group-sm w-75 mx-auto">
+                  <input
+                    type="number"
+                    step="any"
+                    min="0"
+                    required
+                    class="form-control text-center"
+                    v-model="item.Trades.discount"
+                    @focusout="putTrade('', item)"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      {{ item.Currencies ? item.Currencies.currency : "" }}
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </td>
+            <td>
+              <span
+                :class="
+                  item.Trades.price - item.Trades.discount >
+                  item.Products.sotuv_narx
+                    ? 'text-success'
+                    : item.Trades.price - item.Trades.discount <=
+                        item.Products.sotuv_narx &&
+                      item.Trades.price - item.Trades.discount >=
+                        item.Products.oxirgi_narx
+                    ? 'text-warning'
+                    : 'text-danger'
+                "
+              >
+                {{
+                  Intl.NumberFormat().format(
+                    (item.Trades.price - item.Trades.discount) *
+                      item.sum_quantity
+                  ) +
+                  " " +
+                  item.Currencies.currency
+                }}
+              </span>
+            </td>
+            <td>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                @click="putTrade('delete', item)"
+              >
+                <i class="fa fa-trash" />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <Bar @setloading="setloading" />

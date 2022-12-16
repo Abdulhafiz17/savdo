@@ -253,11 +253,11 @@
               <tr v-for="i in trades" :key="i">
                 <td>
                   {{
-                    i.Categories.name +
+                    i.Categories?.name +
                     " - " +
-                    i.Products.articul +
+                    i.Products?.articul +
                     " - " +
-                    i.Products.size
+                    i.Products?.size
                   }}
                 </td>
                 <td>

@@ -45,6 +45,24 @@
         <details v-for="item in categories" :key="item">
           <summary @click="getProducts(item.Categories, 0, 50)">
             <h5>{{ item.Categories.name }}</h5>
+            <span>
+              Kategoriya balansi:
+              <strong
+                v-for="(item3, index) in findCategoryBalance(
+                  item.Categories.id
+                )"
+                :key="item3"
+              >
+                {{
+                  Intl.NumberFormat().format(item3.price) +
+                  " " +
+                  item3.currency +
+                  (index < findCategoryBalance(item.Categories.id).length - 1
+                    ? ", "
+                    : "")
+                }}
+              </strong>
+            </span>
           </summary>
           <div class="table-responsive">
             <table class="table table-sm table-hover">
@@ -136,40 +154,48 @@
                     <div class="input-group input-group-sm">
                       <button
                         class="btn btn-sm"
-                        @click="getProducts(item.Categories, 0, limit)"
-                        :disabled="page == 0"
+                        @click="getProducts(item.Categories, 0, limit_2)"
+                        :disabled="page_2 == 0"
                       >
                         <i class="fa fa-angle-double-left" />
                       </button>
                       <button
                         class="btn btn-sm"
-                        @click="getProducts(item.Categories, page - 1, limit)"
-                        :disabled="page == 0"
+                        @click="
+                          getProducts(item.Categories, page_2 - 1, limit_2)
+                        "
+                        :disabled="page_2 == 0"
                       >
                         <i class="fa fa-angle-left" />
                       </button>
                       <button class="btn btn-sm">
-                        {{ page + 1 }}
+                        {{ page_2 + 1 }}
                       </button>
                       <button
                         class="btn btn-sm"
-                        @click="getProducts(item.Categories, page + 1, limit)"
-                        :disabled="page == pages - 1 || pages == 0"
+                        @click="
+                          getProducts(item.Categories, page_2 + 1, limit_2)
+                        "
+                        :disabled="page_2 == pages_2 - 1 || pages_2 == 0"
                       >
                         <i class="fa fa-angle-right" />
                       </button>
                       <button
                         class="btn btn-sm"
-                        @click="getProducts(item.Categories, pages - 1, limit)"
-                        :disabled="page == pages - 1 || pages == 0"
+                        @click="
+                          getProducts(item.Categories, pages_2 - 1, limit_2)
+                        "
+                        :disabled="page_2 == pages_2 - 1 || pages_2 == 0"
                       >
                         <i class="fa fa-angle-double-right" />
                       </button>
                       <div class="input-group-append">
                         <select
                           class="form-select form-select-sm"
-                          v-model="limit"
-                          @change="getProducts(item.Categories, page, limit)"
+                          v-model="limit_2"
+                          @change="
+                            getProducts(item.Categories, page_2, limit_2)
+                          "
                         >
                           <option disabled value="">limit</option>
                           <option value="25">25</option>
@@ -481,7 +507,11 @@ export default {
       page: 0,
       pages: 1,
       limit: 50,
+      page_2: 0,
+      pages_2: 1,
+      limit_2: 50,
       categories: [],
+      category_prices: [],
       category: {
         name: null,
       },
@@ -510,13 +540,20 @@ export default {
           catchError(error);
         });
     },
+    findCategoryBalance(category_id) {
+      let data = this.category_prices.find(
+        (item) => item.categories.id == category_id
+      );
+      return data.prices_data;
+    },
     get(page, limit) {
       this.$emit("setloading", true);
       categories(0, page, limit)
         .then((Response) => {
-          console.log(Response.data)
+          console.log(Response.data);
           this.page = Response.data.current_page;
           this.pages = Response.data.pages;
+          this.category_prices = Response.data.category_list;
           this.categories = Response.data.data;
           this.categories.forEach((item) => {
             item.Categories.products = [];
@@ -532,8 +569,8 @@ export default {
       this.$emit("setloading", true);
       categories(category.id, page, limit)
         .then((Response) => {
-          this.page = Response.data.current_page;
-          this.pages = Response.data.pages;
+          this.page_2 = Response.data.current_page;
+          this.pages_2 = Response.data.pages;
           category.products = Response.data.data;
           this.$emit("setloading", false);
         })
@@ -712,7 +749,7 @@ export default {
   color: black;
   background: white;
   text-align: center;
-  }
+}
 #tag_body {
   position: absolute;
   top: 0;
