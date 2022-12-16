@@ -550,7 +550,6 @@ export default {
       this.$emit("setloading", true);
       categories(0, page, limit)
         .then((Response) => {
-          console.log(Response.data);
           this.page = Response.data.current_page;
           this.pages = Response.data.pages;
           this.category_prices = Response.data.category_list;
