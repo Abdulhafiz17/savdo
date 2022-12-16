@@ -312,7 +312,11 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-outline-danger" data-dismiss="modal">
+          <button
+            class="btn btn-outline-danger"
+            data-dismiss="modal"
+            close-day-modal
+          >
             <i class="far fa-circle-xmark" />
           </button>
         </div>
@@ -324,7 +328,13 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5>Buyurtma</h5>
+          <h5>Buyurtma Id:{{ order?.id }}</h5>
+          <button
+            class="btn btn-outline-info"
+            @click="routerToReturn(order.id)"
+          >
+            <i class="fa fa-undo" />
+          </button>
         </div>
         <div class="modal-body">
           <div
@@ -459,10 +469,7 @@
                   <tr>
                     <td colspan="6">
                       <div
-                        class="
-                          input-group input-group-sm
-                          justify-content-center
-                        "
+                        class="input-group input-group-sm justify-content-center"
                       >
                         <button
                           class="btn btn-sm"
@@ -522,7 +529,11 @@
           >
             <i class="fa fa-print"></i>
           </button>
-          <button class="btn btn-outline-danger" data-dismiss="modal">
+          <button
+            class="btn btn-outline-danger"
+            data-dismiss="modal"
+            close-order-modal
+          >
             <i class="far fa-circle-xmark" />
           </button>
         </div>
@@ -879,6 +890,12 @@ export default {
       `;
       winPrint.document.querySelector("body").innerHTML = check;
       winPrint.print();
+    },
+    routerToReturn(order_id) {
+      document.querySelector("[close-order-modal]").click();
+      document.querySelector("[close-day-modal]").click();
+      localStorage.setItem("order_id_for_return", order_id);
+      this.$router.push("/return")
     },
   },
 };

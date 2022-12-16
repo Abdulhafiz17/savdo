@@ -570,8 +570,15 @@ export default {
   },
   created() {
     this.$emit("setloading", false);
+    let order_id = localStorage.getItem("order_id_for_return");
+    if (order_id) {
+      this.getOrder(order_id)
+    }
   },
   mounted() {},
+  beforeRouteLeave() {
+    localStorage.removeItem("order_id_for_return");
+  },
   methods: {
     getOrder(id) {
       this.return_product = {
