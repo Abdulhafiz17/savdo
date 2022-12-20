@@ -387,11 +387,17 @@
                 {{ product.Products.articul }}
               </span>
               <span>
-                <u>{{ product.Products.size }}</u>
+                <i>{{ product.Products.size }}</i>
               </span>
               <span>
-                {{ Intl.NumberFormat().format(product.Products.vitrina_narx) }}
-                {{ product.Products.currency_savdo.currency }}
+                <strong>
+                  <u>
+                    {{
+                      Intl.NumberFormat().format(product.Products.vitrina_narx)
+                    }}
+                    {{ product.Products.currency_savdo.currency }}
+                  </u>
+                </strong>
               </span>
             </div>
             <div id="tag_barcode">
@@ -580,6 +586,7 @@ export default {
     },
     createBarcode(product) {
       this.product = product;
+      this.countLength(product);
       setTimeout(() => {
         JsBarcode("#barcode", product.Products.code, {
           // format: "CODE128",
@@ -587,6 +594,15 @@ export default {
           height: 14,
         });
       }, 100);
+    },
+    countLength(product) {
+      let size = String(
+        product.Products.articul +
+          product.Products.size +
+          product.Products.vitrina_narx +
+          product.Products.currency_savdo.currency
+      );
+      console.log(size.length);
     },
     getPhoto(product) {
       // console.log(product)
@@ -651,41 +667,6 @@ export default {
     printTag() {
       let tag = document.querySelector("#tag").outerHTML;
       const winPrint = window.open("", "", "");
-      // winPrint.document.write(
-      //   `
-      //     <style>
-      //       body {
-      //         margin: 5px
-      //       }
-      //       #tag {
-      //         width: 4.2cm;
-      //         height: 5.5cm;
-      //         color: black;
-      //         background: white;
-      //         text-align: center;
-      //       }
-      //       #tag_body {
-      //         min-height: 50%;
-      //         max-height: 65%;
-      //         display: flex;
-      //         justify-content: center;
-      //         flex-wrap: wrap;
-      //         align-items: center;
-      //         text-align: center;
-      //       }
-      //       #tag_body span {
-      //         display: block;
-      //         width: 100%;
-      //       }
-      //       #barcode {
-      //         border: 1px dotted black;
-      //       }
-      //     </style>
-      //     </body>
-      //   `
-      // );
-      // winPrint.document.write(`${tag}`);
-      // winPrint.document.write(`</body>`)
       winPrint.document.querySelector("head").innerHTML = `
           <style>
             body {
@@ -699,30 +680,28 @@ export default {
               color: black;
               background: white;
               text-align: center;
-              }
+            }
             #tag_body {
               position: absolute;
               top: 0;
-              width: 5.8cm;
-              height: 1cm;
               display: flex;
               justify-content: center;
               align-items: center;
+              width: 5.8cm;
+              height: 1.5cm;
               flex-wrap: wrap;
               text-align: center;
+              font-size: 12.5px;
             }
             #tag_body span {
               padding: 2px;
-              font-size: 12px !important;
             }
             #tag_barcode {
               position: absolute;
               bottom: 0;
               width: 5.8cm;
-              height: 2cm;
+              height: 1.5cm;
             }
-          </style>
-          </body>
         `;
       winPrint.document.querySelector("body").innerHTML = tag;
       winPrint.print();
@@ -752,17 +731,17 @@ export default {
 #tag_body {
   position: absolute;
   top: 0;
-  width: 5.8cm;
-  height: 1.5cm;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 5.8cm;
+  height: 1.5cm;
   flex-wrap: wrap;
   text-align: center;
+  font-size: 12.5px;
 }
 #tag_body span {
   padding: 2px;
-  font-size: 12px !important;
 }
 #tag_barcode {
   position: absolute;
